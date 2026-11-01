@@ -5,6 +5,7 @@ import com.example.floodmonitor.model.Station;
 import com.example.floodmonitor.model.StationStatus;
 import com.example.floodmonitor.repository.MeasurementRepository;
 import com.example.floodmonitor.repository.StationRepository;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Random;
 
 @Service
+@ConditionalOnProperty(name = "simulation.enabled", havingValue = "true", matchIfMissing = true)
 public class SimulationService {
 
     private final StationRepository stationRepository;

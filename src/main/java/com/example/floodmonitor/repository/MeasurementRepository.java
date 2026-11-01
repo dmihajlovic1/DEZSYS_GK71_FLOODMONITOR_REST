@@ -30,4 +30,7 @@ public class MeasurementRepository {
         }
         return Optional.of(list.get(list.size() - 1));
     }
+    public synchronized void clear() {
+        measurements.clear();
+    }
 }

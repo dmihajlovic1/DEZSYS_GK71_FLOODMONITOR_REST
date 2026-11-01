@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FloodMonitor – Hochwasser-Frühwarnsystem</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+<header>
+    <h1>🌊 FloodMonitor</h1>
+    <p>Hochwasser-Frühwarnsystem – DEZSYS GK71</p>
+</header>
+
+<main>
+    <!-- Einstellungen -->
+    <section class="card">
+        <h2>Einstellungen</h2>
+        <div class="row">
+            <label>Station
+                <select id="station"></select>
+            </label>
+            <label>Format
+                <select id="format">
+                    <option value="json">JSON</option>
+                    <option value="xml">XML</option>
+                </select>
+            </label>
+            <label class="inline">
+                <input type="checkbox" id="autoRefresh" checked> Auto-Refresh
+            </label>
+            <label>Intervall
+                <select id="interval">
+                    <option value="5000">5 s</option>
+                    <option value="10000" selected>10 s</option>
+                    <option value="30000">30 s</option>
+                </select>
+            </label>
+            <button id="refreshBtn">Jetzt aktualisieren</button>
+        </div>
+    </section>
+
+    <!-- Status-Zeile -->
+    <div id="loading" class="loading" hidden>Lade Daten …</div>
+    <div id="error" class="error" hidden></div>
+    <div id="lastUpdate" class="last-update"></div>
+
+    <!-- Aktueller Messwert -->
+    <section class="card">
+        <h2>Aktuellster Messwert</h2>
+        <div id="latest" class="tiles"></div>
+    </section>
+
+    <!-- Warnungen -->
+    <section class="card">
+        <h2>Aktuelle Warnungen</h2>
+        <ul id="alerts" class="alerts"></ul>
+    </section>
+
+    <!-- Historie -->
+    <section class="card">
+        <h2>Historische Messwerte</h2>
+        <div class="row">
+            <label>Von <input type="datetime-local" id="from"></label>
+            <label>Bis <input type="datetime-local" id="to"></label>
+            <label>Warnstufe
+                <select id="warningLevel">
+                    <option value="">Alle</option>
+                    <option value="NORMAL">NORMAL</option>
+                    <option value="WARNING">WARNING</option>
+                    <option value="CRITICAL">CRITICAL</option>
+                    <option value="UNKNOWN">UNKNOWN</option>
+                </select>
+            </label>
+            <label>Limit <input type="number" id="limit" value="50" min="1" max="1000"></label>
+            <button id="applyBtn">Filter anwenden</button>
+            <button id="resetBtn" class="secondary">Zurücksetzen</button>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Station</th>
+                <th>Zeitpunkt</th>
+                <th>Wasserstand (cm)</th>
+                <th>Durchfluss (m³/s)</th>
+                <th>Niederschlag (mm/h)</th>
+                <th>Akku (%)</th>
+                <th>Status</th>
+                <th>Warnstufe</th>
+            </tr>
+            </thead>
+            <tbody id="history"></tbody>
+        </table>
+    </section>
+
+    <!-- Rohdaten: zeigt, dass wirklich JSON bzw. XML ankommt -->
+    <section class="card">
+        <details>
+            <summary>Rohdaten der letzten Antwort anzeigen</summary>
+            <pre id="raw"></pre>
+        </details>
+    </section>
+</main>
+
+</body>
+</html>
