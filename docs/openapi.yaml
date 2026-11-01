@@ -65,8 +65,8 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/StationListResponse'
-        "406":
-          description: Format nicht unterstützt
+        "400":
+          description: Ungültiger Filterwert
           content:
             application/json:
               schema:
@@ -74,8 +74,8 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/ApiError'
-        "400":
-          description: Ungültiger Filterwert
+        "406":
+          description: Format nicht unterstützt
           content:
             application/json:
               schema:
@@ -152,15 +152,6 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/ApiError'
-        "404":
-          description: Station nicht gefunden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ApiError'
         "200":
           description: Statistik
           content:
@@ -170,6 +161,15 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/StatisticsResponse'
+        "404":
+          description: Station nicht gefunden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ApiError'
   /api/v1/stations/{stationId}/measurements:
     get:
       tags:
@@ -228,8 +228,8 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/MeasurementListResponse'
-        "404":
-          description: Station nicht gefunden
+        "400":
+          description: "Ungültiges Datum, from nach to, ungültiges Limit oder Warnstufe"
           content:
             application/json:
               schema:
@@ -237,8 +237,8 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/ApiError'
-        "400":
-          description: "Ungültiges Datum, from nach to, ungültiges Limit oder Warnstufe"
+        "404":
+          description: Station nicht gefunden
           content:
             application/json:
               schema:
